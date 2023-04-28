@@ -34,4 +34,23 @@ def delete_note(id):
     flash('Note Deleted!', category='success')
     return redirect(url_for('views.home'))
 
+
+@views.route('/update', methods=['POST', 'GET'])
+@login_required
+def update_page():
+        return render_template("update.html", user=current_user)
+    
+@views.route('/update/<int:id>', methods=['POST', 'GET'])
+@login_required
+def update_note(id):
+    note=Note.query.get_or_404(id)
+    if request.method=='POST':
+        note.data = request.form.get('note')
+        print(note.data)
+        # db.session.delete(note)
+        db.session.commit()
+        flash('Note Updated!', category='success')
+        return redirect(url_for('views.home'))
+
+
     
