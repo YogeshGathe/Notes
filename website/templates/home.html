@@ -1,7 +1,14 @@
 {% extends 'base.html' %}{% block title %}Home{% endblock %} {% block content %}
 <h1 align="center">Notes</h1>
+
+<form method="POST" action="{{ url_for('views.search_note') }}"> 
+  <input type="text" name="key"  placeholder="Search for keywords..">
+  <button type="submit" value="Submit">Search</button>
+</form>
+
 <ul class="list-group list-group-flush" id="notes">
   {% for note in user.notes %}
+
   <li class="list-group-item">{{ note.data }}
     <form method="post" action="{{ url_for('views.delete_note', id=note.id) }}">
       <input class="btn btn-danger btn rounded-3" type="submit" name="delete" value=&times >

@@ -51,6 +51,17 @@ def update_note(id):
         db.session.commit()
         flash('Note Updated!', category='success')
         return redirect(url_for('views.home'))
+    
 
+@views.route('/search', methods=['POST', 'GET'])
+@login_required
+def search_note():
+        key=request.form.get('key')
+        print(key)
+        notes_q=Note.query
+        searched=notes_q.filter(Note.data.like('%'+key+'%')).all()
+        print(searched)
+        return render_template("search.html", user=current_user, searched=searched)
+            
 
     

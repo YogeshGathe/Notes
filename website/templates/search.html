@@ -1,0 +1,18 @@
+{% extends 'base.html' %}{% block title %}Search{% endblock %} {% block content %}
+<h1 align="center">Search result</h1>
+
+{% for note in user.notes%}
+{% if note in searched%}
+
+<li class="list-group-item">{{note.data}}<br/>
+    <form method="post" action="{{ url_for('views.delete_note', id=note.id) }}">
+      <input class="btn btn-danger btn rounded-3" type="submit" name="delete" value=&times >
+    </form>
+    <form method="post" action="/update">
+        <input class="btn btn-success btn-sm rounded-3" type="submit" name="edit" value=&#9999>
+    </form>
+</li>
+
+{% endif %}
+{%endfor%}
+{% endblock %}
