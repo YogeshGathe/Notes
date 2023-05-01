@@ -53,15 +53,19 @@ def update_note(id):
         return redirect(url_for('views.home'))
     
 
-@views.route('/search', methods=['POST', 'GET'])
+@views.route('/search', methods=['POST'])
 @login_required
 def search_note():
         key=request.form.get('key')
-        print(key)
         notes_q=Note.query
-        searched=notes_q.filter(Note.data.like('%'+key+'%')).all()
-        print(searched)
-        return render_template("search.html", user=current_user, searched=searched)
+        # user=current_user
+        searched=notes_q.filter(Note.data.like('%'+key+'%'), Note.user_id == current_user.id).all()
+        if searched:
+             return render_template("search.html", user=current_user, searched=searched)
+        else:
+             flash("No Notes Found!", category= "error")
+             return redirect(url_for('views.home'))
+
             
 
     
