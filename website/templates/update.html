@@ -1,12 +1,13 @@
 {% extends 'base.html' %}{% block title %}Update{% endblock %} {% block content %}
 <h1 align="center">Update Note</h1>
 
+
 {% for note in user.notes %}
 
 <form method="post" action="/update/{{note.id}}">
   <textarea name="note" id="note" class="form-control">{{note.data}}</textarea>
-  <input class="btn btn-success btn-sm rounded-3" type="submit" name="edit" value="Update">
-</form>
+  <input class="btn btn-success btn-sm rounded-3" type="submit" name="edit" value="Update"> 
+</form><br/>
 {% endfor %}
 
 
