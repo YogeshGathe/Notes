@@ -58,7 +58,6 @@ def update_note(id):
 def search_note():
         key=request.form.get('key')
         notes_q=Note.query
-        # user=current_user
         searched=notes_q.filter(Note.data.like('%'+key+'%'), Note.user_id == current_user.id).all()
         if searched:
              return render_template("search.html", user=current_user, searched=searched)
